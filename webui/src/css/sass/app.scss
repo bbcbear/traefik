@@ -129,6 +129,7 @@ body {
     flex-wrap: wrap;
     .q-chip__content{
       white-space: normal;
+      word-break: break-word;
     }
   }
   &-accent, &-rule {
