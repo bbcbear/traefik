@@ -305,20 +305,6 @@
             </div>
           </div>
         </q-card-section>
-        <!-- EXTRA FIELDS FROM MIDDLEWARES - [forwardAuth] - authRequestHeaders -->
-        <q-card-section v-if="middleware.forwardAuth">
-          <div class="row items-start no-wrap">
-            <div class="col">
-              <div class="text-subtitle2">Auth Request Headers</div>
-              <q-chip
-                v-for="(reqHeader, key) in exData(middleware).authRequestHeaders" :key="key"
-                dense
-                class="app-chip app-chip-green">
-                {{ reqHeader }}
-              </q-chip>
-            </div>
-          </div>
-        </q-card-section>
 
         <!-- EXTRA FIELDS FROM MIDDLEWARES - [headers] - customRequestHeaders -->
         <q-card-section v-if="middleware.headers">
@@ -948,7 +934,12 @@
               <q-chip
                 dense
                 class="app-chip app-chip-green">
-                {{ exData(middleware).replacement }}
+                <div style="overflow: hidden; text-overflow: ellipsis; width: 100%;">
+                  {{ exData(middleware).replacement }}
+                </div>
+                <q-tooltip max-width="90vw" content-style="overflow-wrap: break-word;">
+                  {{ exData(middleware).replacement }}
+                </q-tooltip>
               </q-chip>
             </div>
           </div>
@@ -1182,15 +1173,17 @@ export default {
     }
 
     .app-chip {
+      max-width: 100%;
       &-error {
         display: flex;
         height: 100%;
         flex-wrap: wrap;
         border-width: 0;
         margin-bottom: 8px;
-        /deep/ .q-chip__content{
-          white-space: normal;
-        }
+      }
+      /deep/ .q-chip__content{
+        white-space: normal;
+        max-width: inherit;
       }
     }
 
@@ -1216,5 +1209,4 @@ export default {
       }
     }
   }
-
 </style>
